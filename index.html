@@ -1512,7 +1512,7 @@
     
     .calendar-day-cell.booked {
         background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
-        color: #721c24;
+        color: transparent;
         border-color: #f1b0b7;
         cursor: not-allowed;
         position: relative;
@@ -1521,50 +1521,38 @@
     
     .dark-theme .calendar-day-cell.booked {
         background: linear-gradient(135deg, rgba(139, 115, 85, 0.3) 0%, rgba(107, 88, 65, 0.4) 100%);
-        color: #e6d0b3;
+        color: transparent;
         border-color: rgba(139, 115, 85, 0.5);
-    }
-    
-    .calendar-day-cell.booked .day-number {
-        position: relative;
-        z-index: 2;
-        font-weight: 700;
-        font-size: 16px;
-        color: #721c24;
-        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
-        animation: float 3s ease-in-out infinite;
-    }
-    
-    .dark-theme .calendar-day-cell.booked .day-number {
-        color: #f8e5c8;
     }
     
     .calendar-day-cell.booked::before {
         content: "🦭";
         position: absolute;
-        font-size: 24px;
-        opacity: 0.3;
+        font-size: 28px;
+        opacity: 1;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
         animation: swim 6s ease-in-out infinite;
-        z-index: 1;
+        z-index: 2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
     }
     
     .dark-theme .calendar-day-cell.booked::before {
-        opacity: 0.4;
-    }
-    
-    @keyframes float {
-        0%, 100% { transform: translateY(0px); }
-        50% { transform: translateY(-3px); }
+        opacity: 1;
+        color: #721c24;
+        text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
     }
     
     @keyframes swim {
-        0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
-        25% { transform: translate(-40%, -60%) rotate(5deg); }
-        50% { transform: translate(-50%, -40%) rotate(0deg); }
-        75% { transform: translate(-60%, -50%) rotate(-5deg); }
+        0%, 100% { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+        25% { transform: translate(-40%, -60%) rotate(5deg) scale(1.1); }
+        50% { transform: translate(-50%, -40%) rotate(0deg) scale(1); }
+        75% { transform: translate(-60%, -50%) rotate(-5deg) scale(1.1); }
     }
     
     .calendar-day-cell.current {
@@ -2553,12 +2541,8 @@
             font-size: 13px;
         }
         
-        .calendar-day-cell.booked .day-number {
-            font-size: 14px;
-        }
-        
         .calendar-day-cell.booked::before {
-            font-size: 20px;
+            font-size: 24px;
         }
         
         /* Общие */
@@ -2666,12 +2650,8 @@
             align-items: center;
         }
         
-        .calendar-day-cell.booked .day-number {
-            font-size: 13px;
-        }
-        
         .calendar-day-cell.booked::before {
-            font-size: 18px;
+            font-size: 22px;
         }
         
         /* Общие */
@@ -3027,6 +3007,7 @@
                 <ul class="nav-menu">
                     <li><a href="#houses">Наши шале</a></li>
                     <li><a href="#locations">Локации</a></li>
+                    <li><a href="#" onclick="showPage('how-to-get')">Как добраться</a></li>
                     <li><a href="#promotions">Акции</a></li>
                     <li><a href="#amenities">Удобства</a></li>
                     <li><a href="#gallery">Галерея</a></li>
@@ -3125,6 +3106,70 @@
                         </ul>
                         
                         <div class="house-price">от 15 000 ₽/сутки</div>
+                        <a href="#booking" class="book-btn" style="margin-top: 15px; width: 100%; text-align: center;">
+                            <i class="fas fa-calendar-check"></i>
+                            Забронировать
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Баня -->
+                <div class="house-card fade-in">
+                    <div class="video-container">
+                        <div class="video-preview" style="background-image: url('img/баня.jpg');">
+                            <div class="video-overlay">
+                                <button class="video-play-btn" onclick="openVideoModal('chalet2')">
+                                    <i class="fas fa-play"></i>
+                                    <span>Смотреть видео</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="house-content">
+                        <h3 class="house-title">Баня "Царская"</h3>
+                        <p>Аутентичная русская баня на дровах с парной комнатой, предбанником и зоной отдыха. Идеальна для оздоровительных процедур.</p>
+                        
+                        <ul class="house-features">
+                            <li><i class="fas fa-fire"></i> Настоящая баня на дровах</li>
+                            <li><i class="fas fa-temperature-high"></i> Парная до 110°C</li>
+                            <li><i class="fas fa-shower"></i> Помывочная зона</li>
+                            <li><i class="fas fa-couch"></i> Комната отдыха с камином</li>
+                            <li><i class="fas fa-glass-cheers"></i> Чайная церемония</li>
+                        </ul>
+                        
+                        <div class="house-price">5 000 ₽/сеанс</div>
+                        <a href="#booking" class="book-btn" style="margin-top: 15px; width: 100%; text-align: center;">
+                            <i class="fas fa-calendar-check"></i>
+                            Забронировать
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Чан -->
+                <div class="house-card fade-in">
+                    <div class="video-container">
+                        <div class="video-preview" style="background-image: url('img/чан.jpg');">
+                            <div class="video-overlay">
+                                <button class="video-play-btn" onclick="openVideoModal('chalet3')">
+                                    <i class="fas fa-play"></i>
+                                    <span>Смотреть видео</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="house-content">
+                        <h3 class="house-title">Чан "Лесной"</h3>
+                        <p>Деревянный чан с подогревом на открытом воздухе. Уникальная возможность принять горячую ванну среди природы.</p>
+                        
+                        <ul class="house-features">
+                            <li><i class="fas fa-hot-tub"></i> Деревянный чан 2x2м</li>
+                            <li><i class="fas fa-fire"></i> Дровяной подогрев</li>
+                            <li><i class="fas fa-star"></i> Ароматерапия травами</li>
+                            <li><i class="fas fa-umbrella-beach"></i> Зона отдыха у чана</li>
+                            <li><i class="fas fa-moon"></i> Ночная подсветка</li>
+                        </ul>
+                        
+                        <div class="house-price">3 500 ₽/сеанс</div>
                         <a href="#booking" class="book-btn" style="margin-top: 15px; width: 100%; text-align: center;">
                             <i class="fas fa-calendar-check"></i>
                             Забронировать
@@ -3405,6 +3450,18 @@
                     <source src="video/chalet1.mp4" type="video/mp4">
                     Ваш браузер не поддерживает видео тег.
                 </video>
+                
+                <!-- Видео 2 -->
+                <video class="custom-video" id="chalet2Video" controls>
+                    <source src="video/chalet2.mp4" type="video/mp4">
+                    Ваш браузер не поддерживает видео тег.
+                </video>
+                
+                <!-- Видео 3 -->
+                <video class="custom-video" id="chalet3Video" controls>
+                    <source src="video/chalet3.mp4" type="video/mp4">
+                    Ваш браузер не поддерживает видео тег.
+                </video>
             
                 <div class="video-loading" id="videoLoading">
                     <div class="video-loading-spinner"></div>
@@ -3494,6 +3551,7 @@
                     <ul class="footer-links">
                         <li><a href="#houses">Наше шале</a></li>
                         <li><a href="#locations">Локации</a></li>
+                        <li><a href="#" onclick="showPage('how-to-get')">Как добраться</a></li>
                         <li><a href="#promotions">Акции</a></li>
                         <li><a href="#amenities">Удобства</a></li>
                         <li><a href="#gallery">Галерея</a></li>
@@ -3504,10 +3562,8 @@
                 <div class="footer-section">
                     <h3>Информация</h3>
                     <ul class="footer-links">
-                        <li><a href="#" onclick="showPage('how-to-get')">Как добраться</a></li>
                         <li><a href="#" onclick="showPage('reviews')">Отзывы</a></li>
                         <li><a href="#" onclick="showPage('faq')">Частые вопросы</a></li>
-                        <li><a href="#" onclick="showPage('privacy')">Политика конфиденциальности</a></li>
                     </ul>
                 </div>
             </div>
@@ -3531,7 +3587,7 @@
 
     <!-- COOKIES УВЕДОМЛЕНИЕ -->
     <div class="cookies-notice" id="cookiesNotice">
-        <p>Мы используем файлы cookie для улучшения работы сайта. Оставаясь на сайте, вы соглашаетесь с <a href="#" onclick="showPage('privacy')">Политикой конфиденциальности</a>.</p>
+        <p>Мы используем файлы cookie для улучшения работы сайта. Оставаясь на сайте, вы соглашаетесь с нашими условиями.</p>
         <button class="cookies-btn" id="acceptCookies">Принять</button>
     </div>
 
@@ -3950,10 +4006,12 @@ animate() {
                 
                 day.className = className;
                 
-                const dayNumber = document.createElement('span');
-                dayNumber.className = 'day-number';
-                dayNumber.textContent = i;
-                day.appendChild(dayNumber);
+                if (!isBooked) {
+                    const dayNumber = document.createElement('span');
+                    dayNumber.className = 'day-number';
+                    dayNumber.textContent = i;
+                    day.appendChild(dayNumber);
+                }
                 
                 day.dataset.date = dateString;
                 
@@ -4633,54 +4691,6 @@ animate() {
                     </div>
                 `;
                 break;
-                
-            case 'privacy':
-                pageTitle = 'Политика конфиденциальности';
-                pageHTML = `
-                    <div class="page-header">
-                        <h1 class="section-title">Политика конфиденциальности</h1>
-                        <p class="section-subtitle">Как мы защищаем и используем ваши персональные данные</p>
-                    </div>
-                    <div class="page-content">
-                        <h2>1. Общие положения</h2>
-                        <p>Настоящая Политика конфиденциальности персональных данных (далее – Политика конфиденциальности) действует в отношении всей информации, которую сайт Шале-Тюлень, расположенный на доменном имени chalet-seal.ru, может получить о Пользователе во время использования сайта.</p>
-                        
-                        <h2>2. Персональные данные Пользователей, которые обрабатываются</h2>
-                        <p>В рамках настоящей Политики под «персональными данными Пользователя» понимаются:</p>
-                        <ul>
-                            <li>Персональные данные, которые Пользователь предоставляет о себе самостоятельно при оформлении заявки на бронирование или в процессе использования Сервисов сайта</li>
-                            <li>Данные, которые автоматически передаются Сервисам сайта в процессе их использования с помощью установленного на устройстве Пользователя программного обеспечения</li>
-                        </ul>
-                        
-                        <h2>3. Цели обработки персональных данных</h2>
-                        <p>Персональные данные Пользователя обрабатываются в следующих целях:</p>
-                        <ul>
-                            <li>Обработка заявок на бронирование</li>
-                            <li>Связь с Пользователем для уточнения деталей бронирования</li>
-                            <li>Информирование Пользователя о специальных предложениях и акциях</li>
-                            <li>Улучшение качества работы Сервисов</li>
-                        </ul>
-                        
-                        <h2>4. Условия обработки персональных данных</h2>
-                        <p>Обработка персональных данных Пользователя осуществляется без ограничения срока, любым законным способом. Мы принимаем необходимые организационные и технические меры для защиты персональных данных Пользователя от неправомерного или случайного доступа, уничтожения, изменения, блокирования, копирования, распространения, а также от иных неправомерных действий третьих лиц.</p>
-                        
-                        <h2>5. Изменение Политики конфиденциальности</h2>
-                        <p>Мы имеем право вносить изменения в настоящую Политику конфиденциальности. При внесении изменений в актуальной редакции указывается дата последнего обновления. Новая редакция Политики вступает в силу с момента ее размещения, если иное не предусмотрено новой редакцией Политики.</p>
-                        
-                        <h2>6. Контактная информация</h2>
-                        <p>Все предложения или вопросы по настоящей Политике конфиденциальности следует сообщать по адресу: info@chalet-seal.ru</p>
-                        
-                        <p style="margin-top: 30px;"><strong>Дата последнего обновления:</strong> 15 марта 2024 г.</p>
-                        
-                        <div style="text-align: center; margin-top: 40px;">
-                            <button onclick="goBack()" class="book-btn">
-                                <i class="fas fa-arrow-left"></i>
-                                Вернуться на главную
-                            </button>
-                        </div>
-                    </div>
-                `;
-                break;
         }
         
         document.title = `${pageTitle} | Шале-Тюлень`;
@@ -4731,7 +4741,6 @@ animate() {
             <li><a href="#" onclick="showPage('how-to-get')">Как добраться</a></li>
             <li><a href="#" onclick="showPage('reviews')">Отзывы</a></li>
             <li><a href="#" onclick="showPage('faq')">FAQ</a></li>
-            <li><a href="#" onclick="showPage('privacy')">Конфиденциальность</a></li>
         `;
         
         headerControls.innerHTML = `
