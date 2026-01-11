@@ -102,6 +102,12 @@
         overflow-x: hidden;
         transition: var(--transition);
         font-size: 16px;
+        opacity: 1;
+        transition: opacity 0.5s ease;
+    }
+    
+    body.fade-out {
+        opacity: 0;
     }
     
     body.dark-theme {
@@ -361,6 +367,7 @@
         position: relative;
         overflow: hidden;
         margin-top: 70px;
+        transition: opacity 0.5s ease, transform 0.5s ease;
     }
     
     .hero-slider {
@@ -532,6 +539,15 @@
         border-radius: var(--radius);
         position: relative;
         overflow: hidden;
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    
+    .section-hidden {
+        opacity: 0;
+        transform: translateY(20px);
+        pointer-events: none;
     }
     
     /* ЭФФЕКТ ШЕВЕЛЕНИЯ ДЛЯ ВСЕХ СЕКЦИЙ */
@@ -1555,6 +1571,17 @@
         75% { transform: translate(-60%, -50%) rotate(-5deg) scale(1.1); }
     }
     
+    /* Исправление цвета тюленей для светлой темы */
+    body:not(.dark-theme) .calendar-day-cell.booked::before {
+        color: #721c24;
+    }
+    
+    /* Улучшение видимости для темной темы */
+    .dark-theme .calendar-day-cell.booked::before {
+        color: #ff8a8a;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    }
+    
     .calendar-day-cell.current {
         border-color: var(--forest-green);
         box-shadow: 0 0 0 2px rgba(46, 80, 60, 0.3);
@@ -1702,6 +1729,7 @@
         background-color: var(--dark-green);
         color: var(--white);
         padding: clamp(50px, 8vw, 80px) 0 30px;
+        transition: opacity 0.5s ease, transform 0.5s ease;
     }
     
     .dark-theme footer {
@@ -1846,6 +1874,21 @@
         padding: 120px 0 60px;
         min-height: calc(100vh - 200px);
         background-color: var(--gray);
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+        display: none;
+    }
+    
+    .page-container.active {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    .page-container.fade-out {
+        opacity: 0;
+        transform: translateY(-20px);
     }
     
     .dark-theme .page-container {
@@ -1855,6 +1898,9 @@
     .page-header {
         text-align: center;
         margin-bottom: 50px;
+        animation: fadeInUp 0.8s ease forwards;
+        opacity: 0;
+        transform: translateY(20px);
     }
     
     .page-content {
@@ -1864,11 +1910,26 @@
         box-shadow: var(--shadow);
         max-width: 1000px;
         margin: 0 auto;
+        animation: fadeInUp 0.8s ease 0.2s forwards;
+        opacity: 0;
+        transform: translateY(20px);
     }
     
     .dark-theme .page-content {
         background-color: var(--dark-gray);
         box-shadow: var(--shadow-dark);
+    }
+    
+    /* Анимации для страниц */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
     
     /* СТИЛИ ДЛЯ "КАК ДОБРАТЬСЯ" */
@@ -1924,6 +1985,9 @@
         border-radius: var(--radius);
         margin: 20px 0;
         text-align: center;
+        animation: fadeInUp 0.8s ease 0.4s forwards;
+        opacity: 0;
+        transform: translateY(20px);
     }
     
     .dark-theme .map-link-container {
@@ -1961,7 +2025,14 @@
         border-radius: var(--radius);
         text-align: center;
         transition: var(--transition);
+        animation: fadeInUp 0.8s ease forwards;
+        opacity: 0;
+        transform: translateY(20px);
     }
+    
+    .transport-card:nth-child(1) { animation-delay: 0.3s; }
+    .transport-card:nth-child(2) { animation-delay: 0.4s; }
+    .transport-card:nth-child(3) { animation-delay: 0.5s; }
     
     .dark-theme .transport-card {
         background-color: rgba(46, 80, 60, 0.2);
@@ -2001,7 +2072,14 @@
         padding: 30px;
         border-radius: var(--radius);
         transition: var(--transition);
+        animation: fadeInUp 0.8s ease forwards;
+        opacity: 0;
+        transform: translateY(20px);
     }
+    
+    .contact-card:nth-child(1) { animation-delay: 0.3s; }
+    .contact-card:nth-child(2) { animation-delay: 0.4s; }
+    .contact-card:nth-child(3) { animation-delay: 0.5s; }
     
     .dark-theme .contact-card {
         background-color: rgba(46, 80, 60, 0.2);
@@ -2097,7 +2175,17 @@
         margin-bottom: 25px;
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         padding-bottom: 25px;
+        animation: fadeInUp 0.8s ease forwards;
+        opacity: 0;
+        transform: translateY(20px);
     }
+    
+    .faq-item:nth-child(1) { animation-delay: 0.2s; }
+    .faq-item:nth-child(2) { animation-delay: 0.3s; }
+    .faq-item:nth-child(3) { animation-delay: 0.4s; }
+    .faq-item:nth-child(4) { animation-delay: 0.5s; }
+    .faq-item:nth-child(5) { animation-delay: 0.6s; }
+    .faq-item:nth-child(6) { animation-delay: 0.7s; }
     
     .dark-theme .faq-item {
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -2112,16 +2200,35 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        transition: var(--transition);
+    }
+    
+    .faq-question:hover {
+        color: var(--dark-green);
     }
     
     .dark-theme .faq-question {
         color: var(--light-brown);
     }
     
+    .dark-theme .faq-question:hover {
+        color: #d4b996;
+    }
+    
     .faq-answer {
         color: var(--black);
         line-height: 1.6;
         font-size: 16px;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.5s ease, opacity 0.3s ease, margin-top 0.3s ease;
+        opacity: 0;
+    }
+    
+    .faq-answer.active {
+        max-height: 500px;
+        opacity: 1;
+        margin-top: 15px;
     }
     
     .dark-theme .faq-answer {
@@ -2133,7 +2240,15 @@
         border-radius: var(--radius);
         padding: 25px;
         margin-bottom: 25px;
+        animation: fadeInUp 0.8s ease forwards;
+        opacity: 0;
+        transform: translateY(20px);
     }
+    
+    .review-item:nth-child(1) { animation-delay: 0.2s; }
+    .review-item:nth-child(2) { animation-delay: 0.3s; }
+    .review-item:nth-child(3) { animation-delay: 0.4s; }
+    .review-item:nth-child(4) { animation-delay: 0.5s; }
     
     .dark-theme .review-item {
         background-color: rgba(46, 80, 60, 0.2);
@@ -3007,7 +3122,7 @@
                 <ul class="nav-menu">
                     <li><a href="#houses">Наши шале</a></li>
                     <li><a href="#locations">Локации</a></li>
-                    <li><a href="#" onclick="showPage('how-to-get')">Как добраться</a></li>
+                    <li><a href="#" onclick="showPage('how-to-get'); return false;">Как добраться</a></li>
                     <li><a href="#promotions">Акции</a></li>
                     <li><a href="#amenities">Удобства</a></li>
                     <li><a href="#gallery">Галерея</a></li>
@@ -3028,7 +3143,7 @@
     </header>
 
     <!-- ГЕРОЙ СЕКЦИЯ -->
-    <section class="hero">
+    <section class="hero" id="main-hero">
         <div class="hero-slider">
             <div class="slide active" style="background-image: url('img/Слайд 1.jpg');">
                 <div class="slide-content">
@@ -3515,7 +3630,7 @@
     </section>
 
     <!-- ФУТЕР -->
-    <footer>
+    <footer id="main-footer">
         <div class="container">
             <div class="footer-container">
                 <div class="footer-section">
@@ -3551,7 +3666,7 @@
                     <ul class="footer-links">
                         <li><a href="#houses">Наше шале</a></li>
                         <li><a href="#locations">Локации</a></li>
-                        <li><a href="#" onclick="showPage('how-to-get')">Как добраться</a></li>
+                        <li><a href="#" onclick="showPage('how-to-get'); return false;">Как добраться</a></li>
                         <li><a href="#promotions">Акции</a></li>
                         <li><a href="#amenities">Удобства</a></li>
                         <li><a href="#gallery">Галерея</a></li>
@@ -3562,8 +3677,8 @@
                 <div class="footer-section">
                     <h3>Информация</h3>
                     <ul class="footer-links">
-                        <li><a href="#" onclick="showPage('reviews')">Отзывы</a></li>
-                        <li><a href="#" onclick="showPage('faq')">Частые вопросы</a></li>
+                        <li><a href="#" onclick="showPage('reviews'); return false;">Отзывы</a></li>
+                        <li><a href="#" onclick="showPage('faq'); return false;">Частые вопросы</a></li>
                     </ul>
                 </div>
             </div>
@@ -3592,7 +3707,7 @@
     </div>
 
     <!-- КОНТЕЙНЕР ДЛЯ ОТДЕЛЬНЫХ СТРАНИЦ -->
-    <div id="pageContainer" class="page-container" style="display: none;">
+    <div id="pageContainer" class="page-container">
         <div class="container">
             <div id="pageContent"></div>
         </div>
@@ -3630,12 +3745,12 @@
             }
         }
         
-            createFlake() {
-        const flake = document.createElement('div');
-        const type = this.types[Math.floor(Math.random() * this.types.length)];
-        const symbols = this.symbols[type];
-        const symbol = symbols[Math.floor(Math.random() * symbols.length)];
-                
+        createFlake() {
+            const flake = document.createElement('div');
+            const type = this.types[Math.floor(Math.random() * this.types.length)];
+            const symbols = this.symbols[type];
+            const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+            
             flake.className = `snowflake ${type}`;
             flake.innerHTML = symbol;
             
@@ -3685,58 +3800,55 @@
                     this.createFlake();
                 }
             }, duration * 1000);
-            const flakeObj = {
-        element: flake,
-        left: left,
-        type: type, // ← сохраняем здесь
-        speed: duration
-    };
-    
-    this.container.appendChild(flake);
-    this.flakes.push(flakeObj);
         }
         
-animate() {
-    const updateColors = () => {
-        const isDark = document.body.classList.contains('dark-theme');
-        
-        // Фильтруем только существующие элементы
-        const validFlakes = this.flakes.filter(flake => 
-            flake.element && flake.element.parentNode
-        );
-        
-        validFlakes.forEach(flake => {
-            if (flake.type === 'needle') {
-                flake.element.style.color = isDark ? '#ffff' : '#ffff';
-            } else {
-                flake.element.style.color = isDark ? '#ffff' : '#ffff';
-            }
-        });
-        
-        // Обновляем массив flakes, удаляя несуществующие элементы
-        this.flakes = validFlakes;
-    };
-    
-    const observer = new MutationObserver(() => {
-        updateColors();
-    });
-    
-    observer.observe(document.body, {
-        attributes: true,
-        attributeFilter: ['class']
-    });
-    
-    // Инициализация цветов при запуске
-    setTimeout(updateColors, 100);
-}
+        animate() {
+            const updateColors = () => {
+                const isDark = document.body.classList.contains('dark-theme');
+                
+                // Фильтруем только существующие элементы
+                const validFlakes = this.flakes.filter(flake => 
+                    flake.element && flake.element.parentNode
+                );
+                
+                validFlakes.forEach(flake => {
+                    if (flake.type === 'needle') {
+                        flake.element.style.color = isDark ? '#ffff' : '#ffff';
+                    } else {
+                        flake.element.style.color = isDark ? '#ffff' : '#ffff';
+                    }
+                });
+                
+                // Обновляем массив flakes, удаляя несуществующие элементы
+                this.flakes = validFlakes;
+            };
+            
+            const observer = new MutationObserver(() => {
+                updateColors();
+            });
+            
+            observer.observe(document.body, {
+                attributes: true,
+                attributeFilter: ['class']
+            });
+            
+            // Инициализация цветов при запуске
+            setTimeout(updateColors, 100);
+        }
     }
+    
+    // ========== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ ==========
+    let currentPage = null;
+    let isTransitioning = false;
+    let calendarInstance = null;
+    let snowEffectInstance = null;
     
     // ========== ОСНОВНОЙ КОД ==========
     document.addEventListener('DOMContentLoaded', () => {
         console.log('Сайт "Шале-Тюлень" загружен!');
         
         // Инициализация новогоднего эффекта
-        new ChristmasEffect();
+        snowEffectInstance = new ChristmasEffect();
         
         // Инициализация всех компонентов
         initializeComponents();
@@ -3745,6 +3857,9 @@ animate() {
         document.querySelectorAll('.fade-in').forEach((el, index) => {
             el.style.animationDelay = `${index * 0.1}s`;
         });
+        
+        // Инициализация обработчиков для кнопок в футере
+        initFooterLinks();
     });
     
     function initializeComponents() {
@@ -3873,6 +3988,18 @@ animate() {
         
         // Инициализация видео
         initializeVideo();
+    }
+    
+    function initFooterLinks() {
+        // Обработчики для ссылок в футере
+        document.querySelectorAll('.footer-links a[onclick*="showPage"]').forEach(link => {
+            const originalOnClick = link.getAttribute('onclick');
+            link.removeAttribute('onclick');
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                eval(originalOnClick);
+            });
+        });
     }
     
     // ========== КАЛЕНДАРЬ ==========
@@ -4167,7 +4294,7 @@ animate() {
     }
     
     function initializeCalendar() {
-        window.calendar = new RealtimeCalendar();
+        calendarInstance = new RealtimeCalendar();
     }
     
     // ========== ВИДЕО ==========
@@ -4341,17 +4468,97 @@ animate() {
         modalCounter.textContent = `${currentImageIndex + 1} / ${galleryImages.length}`;
     }
     
-    // ========== ОТДЕЛЬНЫЕ СТРАНИЦЫ ==========
-    function showPage(pageType) {
-        document.querySelectorAll('section, footer, header').forEach(el => {
-            el.style.display = 'none';
+    // ========== ПЛАВНЫЕ ПЕРЕХОДЫ МЕЖДУ СТРАНИЦАМИ ==========
+    async function showPage(pageType) {
+        if (isTransitioning || currentPage === pageType) return;
+        
+        isTransitioning = true;
+        currentPage = pageType;
+        
+        // Плавное скрытие главной страницы
+        const mainSections = document.querySelectorAll('section, #main-footer, #main-hero');
+        const pageContainer = document.getElementById('pageContainer');
+        
+        // Добавляем класс для плавного исчезновения
+        mainSections.forEach(section => {
+            if (section.style.display !== 'none') {
+                section.classList.add('section-hidden');
+            }
         });
         
-        const pageContainer = document.getElementById('pageContainer');
-        const pageContent = document.getElementById('pageContent');
+        document.body.classList.add('fade-out');
         
+        // Ждем завершения анимации
+        await wait(300);
+        
+        // Скрываем главную страницу
+        mainSections.forEach(section => {
+            section.style.display = 'none';
+        });
+        
+        document.body.classList.remove('fade-out');
+        
+        // Показываем контейнер страницы
         pageContainer.style.display = 'block';
-        pageContainer.scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => {
+            pageContainer.classList.add('active');
+        }, 10);
+        
+        // Загружаем контент страницы
+        loadPageContent(pageType);
+        
+        // Прокручиваем к верху страницы
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        
+        // Обновляем навигацию
+        updateNavigationForPage(pageType);
+        
+        isTransitioning = false;
+    }
+    
+    async function goBack() {
+        if (isTransitioning) return;
+        
+        isTransitioning = true;
+        
+        // Плавное скрытие страницы
+        const pageContainer = document.getElementById('pageContainer');
+        pageContainer.classList.remove('active');
+        
+        // Ждем завершения анимации
+        await wait(300);
+        
+        // Скрываем контейнер страницы
+        pageContainer.style.display = 'none';
+        
+        // Показываем главную страницу
+        const mainSections = document.querySelectorAll('section, #main-footer, #main-hero');
+        mainSections.forEach(section => {
+            section.style.display = '';
+            setTimeout(() => {
+                section.classList.remove('section-hidden');
+            }, 10);
+        });
+        
+        // Прокручиваем к верху
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        // Обновляем навигацию
+        updateNavigationForMain();
+        
+        // Обновляем заголовок
+        document.title = 'Шале-Тюлень - Премиум отдых в лесу с банями и купелями';
+        
+        currentPage = null;
+        isTransitioning = false;
+    }
+    
+    function wait(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+    
+    function loadPageContent(pageType) {
+        const pageContent = document.getElementById('pageContent');
         
         let pageHTML = '';
         let pageTitle = '';
@@ -4623,61 +4830,61 @@ animate() {
                     </div>
                     <div class="page-content">
                         <div class="faq-item">
-                            <div class="faq-question" onclick="toggleFAQ(this)">
+                            <div class="faq-question">
                                 Какое время заезда и выезда?
                                 <i class="fas fa-chevron-down"></i>
                             </div>
-                            <div class="faq-answer" style="display: none;">
+                            <div class="faq-answer">
                                 <p>Заезд с 14:00, выезд до 12:00. При возможности раннего заезда или позднего выезда мы всегда идем навстречу гостям - уточняйте при бронировании.</p>
                             </div>
                         </div>
                         
                         <div class="faq-item">
-                            <div class="faq-question" onclick="toggleFAQ(this)">
+                            <div class="faq-question">
                                 Что включено в стоимость проживания?
                                 <i class="fas fa-chevron-down"></i>
                             </div>
-                            <div class="faq-answer" style="display: none;">
+                            <div class="faq-answer">
                                 <p>В стоимость входит проживание, пользование баней (по расписанию), постельное белье и полотенца, пользование кухней и всей техникой, парковка, Wi-Fi.</p>
                             </div>
                         </div>
                         
                         <div class="faq-item">
-                            <div class="faq-question" onclick="toggleFAQ(this)">
+                            <div class="faq-question">
                                 Можно ли с животными?
                                 <i class="fas fa-chevron-down"></i>
                             </div>
-                            <div class="faq-answer" style="display: none;">
+                            <div class="faq-answer">
                                 <p>Да, мы лояльно относимся к домашним питомцам. Просим только заранее сообщать о приезде с животным и соблюдать чистоту на территории.</p>
                             </div>
                         </div>
                         
                         <div class="faq-item">
-                            <div class="faq-question" onclick="toggleFAQ(this)">
+                            <div class="faq-question">
                                 Есть ли на территории связь и интернет?
                                 <i class="fas fa-chevron-down"></i>
                             </div>
-                            <div class="faq-answer" style="display: none;">
+                            <div class="faq-answer">
                                 <p>На территории работает Wi-Fi, мобильная связь доступна (лучше всего ловит Мегафон и МТС). В шале есть усилители сигнала.</p>
                             </div>
                         </div>
                         
                         <div class="faq-item">
-                            <div class="faq-question" onclick="toggleFAQ(this)">
+                            <div class="faq-question">
                                 Что нужно взять с собой?
                                 <i class="fas fa-chevron-down"></i>
                             </div>
-                            <div class="faq-answer" style="display: none;">
+                            <div class="faq-answer">
                                 <p>Рекомендуем взять удобную одежду и обувь для прогулок, купальники для бани, личные средства гигиены. Все остальное (полотенца, халаты, тапочки для бани) предоставляем мы.</p>
                             </div>
                         </div>
                         
                         <div class="faq-item">
-                            <div class="faq-question" onclick="toggleFAQ(this)">
+                            <div class="faq-question">
                                 Как организовано питание?
                                 <i class="fas fa-chevron-down"></i>
                             </div>
-                            <div class="faq-answer" style="display: none;">
+                            <div class="faq-answer">
                                 <p>В каждом шале есть полностью оборудованная кухня. Вы можете готовить сами, заказать продукты с доставкой или воспользоваться услугами нашего повара. Также доступен завтрак "шведский стол".</p>
                             </div>
                         </div>
@@ -4695,39 +4902,74 @@ animate() {
         
         document.title = `${pageTitle} | Шале-Тюлень`;
         pageContent.innerHTML = pageHTML;
-        updateNavigationForPage(pageType);
+        
+        // Инициализируем FAQ после загрузки страницы
+        if (pageType === 'faq') {
+            initializePageFAQ();
+        }
+        
+        // Инициализируем обработчики для кнопок на странице
+        initializePageButtons();
     }
     
     function toggleFAQ(element) {
         const answer = element.nextElementSibling;
         const icon = element.querySelector('i');
         
-        if (answer.style.display === 'none' || answer.style.display === '') {
-            answer.style.display = 'block';
-            icon.classList.remove('fa-chevron-down');
-            icon.classList.add('fa-chevron-up');
-        } else {
-            answer.style.display = 'none';
+        if (answer.classList.contains('active')) {
+            answer.classList.remove('active');
             icon.classList.remove('fa-chevron-up');
             icon.classList.add('fa-chevron-down');
+        } else {
+            answer.classList.add('active');
+            icon.classList.remove('fa-chevron-down');
+            icon.classList.add('fa-chevron-up');
         }
     }
     
-    function goBack() {
-        document.querySelectorAll('section, footer, header').forEach(el => {
-            el.style.display = '';
+    function initializePageFAQ() {
+        // Добавляем обработчики для FAQ
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const icon = this.querySelector('i');
+                
+                if (answer.classList.contains('active')) {
+                    answer.classList.remove('active');
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                } else {
+                    answer.classList.add('active');
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                }
+            });
         });
         
-        document.getElementById('pageContainer').style.display = 'none';
-        document.title = 'Шале-Тюлень - Премиум отдых в лесу с банями и купелями';
-        updateNavigationForMain();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Открываем первый FAQ по умолчанию
+        const firstFAQ = document.querySelector('.faq-question');
+        if (firstFAQ) {
+            const firstAnswer = firstFAQ.nextElementSibling;
+            const firstIcon = firstFAQ.querySelector('i');
+            firstAnswer.classList.add('active');
+            firstIcon.classList.remove('fa-chevron-down');
+            firstIcon.classList.add('fa-chevron-up');
+        }
+    }
+    
+    function initializePageButtons() {
+        // Обработчик для кнопки "На главную"
+        const backButton = document.querySelector('button[onclick="goBack()"]');
+        if (backButton) {
+            backButton.addEventListener('click', goBack);
+        }
     }
     
     function updateNavigationForPage(pageType) {
         const navMenu = document.querySelector('.nav-menu');
         const headerControls = document.querySelector('.header-controls');
         
+        // Сохраняем оригинальный HTML только один раз
         if (!navMenu.dataset.originalHTML) {
             navMenu.dataset.originalHTML = navMenu.innerHTML;
         }
@@ -4736,33 +4978,36 @@ animate() {
             headerControls.dataset.originalHTML = headerControls.innerHTML;
         }
         
+        // Обновляем навигацию для страницы
         navMenu.innerHTML = `
-            <li><a href="#" onclick="goBack()">Главная</a></li>
-            <li><a href="#" onclick="showPage('how-to-get')">Как добраться</a></li>
-            <li><a href="#" onclick="showPage('reviews')">Отзывы</a></li>
-            <li><a href="#" onclick="showPage('faq')">FAQ</a></li>
+            <li><a href="#" onclick="goBack(); return false;">Главная</a></li>
+            <li><a href="#" onclick="showPage('how-to-get'); return false;">Как добраться</a></li>
+            <li><a href="#" onclick="showPage('reviews'); return false;">Отзывы</a></li>
+            <li><a href="#" onclick="showPage('faq'); return false;">FAQ</a></li>
         `;
         
         headerControls.innerHTML = `
-            <button class="theme-toggle" id="themeToggle">
+            <button class="theme-toggle" id="themeTogglePage">
                 <i class="fas fa-moon"></i>
             </button>
             <button onclick="goBack()" class="book-btn">
                 <i class="fas fa-arrow-left"></i>
                 На главную
             </button>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <button class="mobile-menu-btn" id="mobileMenuBtnPage">
                 <i class="fas fa-bars"></i>
             </button>
         `;
         
-        reinitializeButtons();
+        // Инициализируем кнопки на странице
+        reinitializePageButtons();
     }
     
     function updateNavigationForMain() {
         const navMenu = document.querySelector('.nav-menu');
         const headerControls = document.querySelector('.header-controls');
         
+        // Восстанавливаем оригинальную навигацию
         if (navMenu.dataset.originalHTML) {
             navMenu.innerHTML = navMenu.dataset.originalHTML;
         }
@@ -4771,23 +5016,64 @@ animate() {
             headerControls.innerHTML = headerControls.dataset.originalHTML;
         }
         
-        reinitializeButtons();
+        // Инициализируем кнопки на главной странице
+        reinitializeMainButtons();
+        
+        // Инициализируем обработчики для ссылок в футере
+        initFooterLinks();
     }
     
-    function reinitializeButtons() {
-        const themeToggle = document.getElementById('themeToggle');
+    function reinitializePageButtons() {
+        // Тема на странице
+        const themeToggle = document.getElementById('themeTogglePage');
         if (themeToggle) {
+            const isDark = document.body.classList.contains('dark-theme');
+            themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            
             themeToggle.addEventListener('click', () => {
                 document.body.classList.toggle('dark-theme');
                 const isDark = document.body.classList.contains('dark-theme');
                 localStorage.setItem('theme', isDark ? 'dark' : 'light');
                 themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
             });
-            
-            const isDark = document.body.classList.contains('dark-theme');
-            themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
         }
         
+        // Мобильное меню на странице
+        const mobileMenuBtn = document.getElementById('mobileMenuBtnPage');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        if (mobileMenuBtn && navMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                mobileMenuBtn.innerHTML = navMenu.classList.contains('active') 
+                    ? '<i class="fas fa-times"></i>' 
+                    : '<i class="fas fa-bars"></i>';
+            });
+        }
+        
+        // Кнопка "На главную"
+        const backButtons = document.querySelectorAll('.book-btn[onclick="goBack()"]');
+        backButtons.forEach(btn => {
+            btn.addEventListener('click', goBack);
+        });
+    }
+    
+    function reinitializeMainButtons() {
+        // Тема на главной
+        const themeToggle = document.getElementById('themeToggle');
+        if (themeToggle) {
+            const isDark = document.body.classList.contains('dark-theme');
+            themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            
+            themeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-theme');
+                const isDark = document.body.classList.contains('dark-theme');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            });
+        }
+        
+        // Мобильное меню на главной
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navMenu = document.querySelector('.nav-menu');
         
@@ -4797,6 +5083,14 @@ animate() {
                 mobileMenuBtn.innerHTML = navMenu.classList.contains('active') 
                     ? '<i class="fas fa-times"></i>' 
                     : '<i class="fas fa-bars"></i>';
+            });
+            
+            // Закрываем меню при клике на ссылку
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    navMenu.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                });
             });
         }
     }
